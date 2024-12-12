@@ -64,7 +64,7 @@ This is a simple Task Management Application built using the MERN stack (MongoDB
 #### Base URL
 
 ```http
-  http://localhost:5000/todo
+  http://localhost:5000
 ```
 
 #### Retrieve All Todos
@@ -87,7 +87,7 @@ Fetches a list of all todos.
 ####  Filter Todos by Status
 
 ```http
-GET /api/filter?status={status}
+GET /todos/filter?status={status}
 ```
 
 **Summary** : 
