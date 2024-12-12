@@ -64,7 +64,7 @@ This is a simple Task Management Application built using the MERN stack (MongoDB
 #### Base URL
 
 ```http
-  http://localhost:5000
+  http://localhost:5000/todo
 ```
 
 #### Retrieve All Todos
@@ -87,7 +87,7 @@ Fetches a list of all todos.
 ####  Filter Todos by Status
 
 ```http
-GET /todos/filter?status={status}
+GET /api/filter?status={status}
 ```
 
 **Summary** : 
@@ -97,3 +97,56 @@ Filters todos based on the provided status.
 - 200 OK: Returns a filtered list of todos based on the status.
 - 400 Bad Request: Missing or invalid status query parameter.
 - 500 Internal Server Error: An error occurred on the server.
+
+####  Retrieve Available Order Numbers
+
+```http
+GET /todos/orderNumbers
+```
+**Summary** : 
+Fetches a list of available order numbers.
+
+**Responses**
+- 200 OK: Returns an array of available order numbers.
+- 500 Internal Server Error: An error occurred on the server.
+
+####  Add a New Todo
+
+```http
+POST /todos/
+```
+**Summary** : 
+Creates a new todo.
+
+**Responses**
+- 201 Created: The todo was created successfully.
+- 400 Bad Request: Invalid input data.
+- 500 Internal Server Error: An error occurred on the server.
+
+#### Update a Todo by ID
+
+```http
+PUT /todos/{id}
+```
+**Summary** : 
+Updates an existing todo by ID.
+
+**Responses**
+- 200 OK: The todo was updated successfully.
+- 400 Bad Request: Invalid input data.
+- 404 Not Found: The todo with the given ID was not found.
+- 500 Internal Server Error: An error occurred on the server.
+
+
+#### Delete a Todo by ID
+
+```http
+DELETE /todos/{id}
+```
+**Summary** : 
+Deletes a specific todo by its ID.
+
+**Responses**
+- 200 OK: The todo was deleted successfully.
+- 404 Not Found: The todo with the given ID was not found.
+- 500 Internal Server Error: An error occurred on the server
