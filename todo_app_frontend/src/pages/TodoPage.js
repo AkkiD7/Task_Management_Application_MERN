@@ -15,7 +15,6 @@ const TodoPage = () => {
   const [editTodo, setEditTodo] = useState(null);
   const [availableOrderNumbers, setAvailableOrderNumbers] = useState([]);
 
-  // Fetching todos based on filter and sorting by order number
   const refreshTodos = useCallback(async () => {
     try {
       const response = filter
@@ -31,7 +30,6 @@ const TodoPage = () => {
     }
   }, [filter]);
 
-  // Adding a new task
   const handleAddTodo = async (e) => {
     e.preventDefault();
     if (!description.trim()) {
@@ -53,7 +51,6 @@ const TodoPage = () => {
     }
   };
 
-  // Editing an existing task
   const handleEditTodo = async (e) => {
     e.preventDefault();
     if (!description.trim()) {
@@ -75,7 +72,6 @@ const TodoPage = () => {
     }
   };
 
-  // Changing the status of a task
   const handleStatusChange = async (todo) => {
     try {
       await axios.put(`${API_URL}/${todo._id}`, {
@@ -88,11 +84,9 @@ const TodoPage = () => {
     }
   };
 
-  // Deleting a task
   const handleDelete = async (id, orderNumber) => {
     try {
       await axios.delete(`${API_URL}/${id}`);
-      // Refresh the order numbers after deletion
       setAvailableOrderNumbers((prev) => [...prev, orderNumber]);
       refreshTodos();
     } catch (err) {
@@ -101,7 +95,6 @@ const TodoPage = () => {
     }
   };
 
-  // Resetting the form
   const resetForm = () => {
     setDescription("");
     setOrderNumber("");
@@ -110,7 +103,6 @@ const TodoPage = () => {
     setError("");
   };
 
-  // Fetching available order numbers for task ordering
   const fetchAvailableOrderNumbers = async () => {
     try {
       const response = await axios.get(`${API_URL}/orderNumbers`);
@@ -121,7 +113,6 @@ const TodoPage = () => {
     }
   };
 
-  // Fetching todos and available order numbers on initial load
   useEffect(() => {
     refreshTodos();
     fetchAvailableOrderNumbers();
