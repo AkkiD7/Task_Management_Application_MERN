@@ -106,7 +106,18 @@ const TodoPage = () => {
   const fetchAvailableOrderNumbers = async () => {
     try {
       const response = await axios.get(`${API_URL}/orderNumbers`);
-      setAvailableOrderNumbers(response.data);
+      const assignedOrderNumbers = response.data;
+
+      const highestOrderNumber = Math.max(...assignedOrderNumbers, 0);
+
+      const availableOrderNumbers = [];
+      for (let i = 1; i <= highestOrderNumber + 1; i++) {
+        if (!assignedOrderNumbers.includes(i)) {
+          availableOrderNumbers.push(i);
+        }
+      }
+
+      setAvailableOrderNumbers(availableOrderNumbers);
     } catch (err) {
       console.error(err);
       setError("Failed to fetch order numbers");
@@ -187,42 +198,39 @@ const TodoPage = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 lg:w-96">
             <h2 className="text-xl font-semibold mb-4">
-              {editTodo ? "Edit Task" : "Add New Task"}
+              Add New Task
             </h2>
-            {error && <p className="text-red-500 mb-4">{error}</p>}
-            <form onSubmit={editTodo ? handleEditTodo : handleAddTodo}>
-              <input
-                type="text"
-                className="p-2 border border-gray-300 rounded w-full mb-4"
-                placeholder="Task description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-              <select
-                className="p-2 border border-gray-300 rounded w-full mb-4"
-                value={orderNumber}
-                onChange={(e) => setOrderNumber(e.target.value)}
-                required
-              >
-                <option value="">Select Order Number</option>
-                {availableOrderNumbers.map((num) => (
-                  <option key={num} value={num}>
-                    {num}
-                  </option>
-                ))}
-              </select>
-              <div className="flex justify-end">
-                <button type="submit" className="p-2 bg-[#626ff1] text-white rounded mr-2">
-                  {editTodo ? "Save Changes" : "Add Task"}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => resetForm()}
-                  className="p-2 bg-gray-300 rounded"
-                >
-                  Cancel
-                </button>
+            <form onSubmit={handleAddTodo}>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="description">Task Description</label>
+                <input
+                  type="text"
+                  id="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="p-2 border border-gray-300 rounded w-full"
+                  required
+                />
               </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="orderNumber">Order Number</label>
+                <select
+                  className="p-2 border border-gray-300 rounded w-full"
+                  value={orderNumber}
+                  onChange={(e) => setOrderNumber(e.target.value)}
+                  required
+                >
+                  <option value="">Select Order Number</option>
+                  {availableOrderNumbers.map((num) => (
+                    <option key={num} value={num}>
+                      {num}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button type="submit" className="p-2 bg-blue-500 text-white rounded w-full">
+                Add Task
+              </button>
             </form>
           </div>
         </div>
