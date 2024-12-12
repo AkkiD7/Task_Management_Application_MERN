@@ -33,10 +33,14 @@ This is a simple Task Management Application built using the MERN stack (MongoDB
 
 
 
-## Before you begin, make sure you have the following installed:
+## Prerequisites:
 
 **Node.js (v14+):** 
+
 **MongoDB (Local setup):** 
+
+
+## Installation:
 
 
 
