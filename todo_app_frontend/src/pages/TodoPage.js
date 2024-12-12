@@ -21,7 +21,9 @@ const TodoPage = () => {
         ? await axios.get(`${API_URL}/filter`, { params: { status: filter } })
         : await axios.get(API_URL);
 
-      const sortedTodos = response.data.sort((a, b) => a.orderNumber - b.orderNumber);
+      const sortedTodos = response.data.sort(
+        (a, b) => a.orderNumber - b.orderNumber
+      );
       setTodos(sortedTodos);
       setError("");
     } catch (err) {
@@ -42,7 +44,11 @@ const TodoPage = () => {
     }
 
     try {
-      await axios.post(API_URL, { description, orderNumber, status: "pending" });
+      await axios.post(API_URL, {
+        description,
+        orderNumber,
+        status: "pending",
+      });
       resetForm();
       refreshTodos();
     } catch (err) {
@@ -63,7 +69,10 @@ const TodoPage = () => {
     }
 
     try {
-      await axios.put(`${API_URL}/${editTodo._id}`, { description, orderNumber });
+      await axios.put(`${API_URL}/${editTodo._id}`, {
+        description,
+        orderNumber,
+      });
       resetForm();
       refreshTodos();
     } catch (err) {
@@ -103,11 +112,13 @@ const TodoPage = () => {
     setError("");
   };
 
-  // Create a list of numbers from 1 to 100
   const generateOrderNumbers = () => {
+    const takenNumbers = todos.map((todo) => todo.orderNumber);
     const numbers = [];
     for (let i = 1; i <= 100; i++) {
-      numbers.push(i);
+      if (!takenNumbers.includes(i)) {
+        numbers.push(i);
+      }
     }
     return numbers;
   };
@@ -145,7 +156,10 @@ const TodoPage = () => {
           <p className="text-center text-gray-500">No tasks to show here</p>
         ) : (
           todos.map((todo) => (
-            <div key={todo._id} className="flex flex-col p-4 border rounded mb-2 bg-white">
+            <div
+              key={todo._id}
+              className="flex flex-col p-4 border rounded mb-2 bg-white"
+            >
               <div className="flex items-center mb-2">
                 <input
                   type="checkbox"
@@ -153,8 +167,15 @@ const TodoPage = () => {
                   onChange={() => handleStatusChange(todo)}
                   className="mr-2"
                 />
-                <span className={`flex-1 ${todo.status === "completed" ? "line-through" : ""}`}>
-                {todo.orderNumber}{")"} {todo.description}
+                <span
+                  className={`flex-1 ${
+                    todo.status === "completed" ? "line-through" : ""
+                  }`}
+                >
+                  {todo.description}
+                </span>
+                <span className="ml-2 text-gray-500">
+                  (Order: {todo.orderNumber})
                 </span>
                 <button
                   onClick={() => {
@@ -189,7 +210,12 @@ const TodoPage = () => {
             </h2>
             <form onSubmit={editTodo ? handleEditTodo : handleAddTodo}>
               <div className="mb-4">
-                <label className="block text-gray-700 mb-2" htmlFor="description">Task Description</label>
+                <label
+                  className="block text-gray-700 mb-2"
+                  htmlFor="description"
+                >
+                  Task Description
+                </label>
                 <input
                   type="text"
                   id="description"
@@ -200,7 +226,12 @@ const TodoPage = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700 mb-2" htmlFor="orderNumber">Order Number</label>
+                <label
+                  className="block text-gray-700 mb-2"
+                  htmlFor="orderNumber"
+                >
+                  Order Number
+                </label>
                 <select
                   className="p-2 border border-gray-300 rounded w-full"
                   value={orderNumber}
@@ -215,7 +246,10 @@ const TodoPage = () => {
                   ))}
                 </select>
               </div>
-              <button type="submit" className="p-2 bg-blue-500 text-white rounded w-full">
+              <button
+                type="submit"
+                className="p-2 bg-blue-500 text-white rounded w-full"
+              >
                 {editTodo ? "Update Task" : "Add Task"}
               </button>
             </form>
