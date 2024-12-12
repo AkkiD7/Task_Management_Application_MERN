@@ -103,30 +103,17 @@ const TodoPage = () => {
     setError("");
   };
 
-  const fetchAvailableOrderNumbers = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/orderNumbers`);
-      const assignedOrderNumbers = response.data;
-
-      const highestOrderNumber = Math.max(...assignedOrderNumbers, 0);
-
-      const availableOrderNumbers = [];
-      for (let i = 1; i <= highestOrderNumber + 1; i++) {
-        if (!assignedOrderNumbers.includes(i)) {
-          availableOrderNumbers.push(i);
-        }
-      }
-
-      setAvailableOrderNumbers(availableOrderNumbers);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to fetch order numbers");
+  // Create a list of numbers from 1 to 100
+  const generateOrderNumbers = () => {
+    const numbers = [];
+    for (let i = 1; i <= 100; i++) {
+      numbers.push(i);
     }
+    return numbers;
   };
 
   useEffect(() => {
     refreshTodos();
-    fetchAvailableOrderNumbers();
   }, [filter, refreshTodos]);
 
   return (
@@ -198,9 +185,9 @@ const TodoPage = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 lg:w-96">
             <h2 className="text-xl font-semibold mb-4">
-              Add New Task
+              {editTodo ? "Edit Task" : "Add New Task"}
             </h2>
-            <form onSubmit={handleAddTodo}>
+            <form onSubmit={editTodo ? handleEditTodo : handleAddTodo}>
               <div className="mb-4">
                 <label className="block text-gray-700 mb-2" htmlFor="description">Task Description</label>
                 <input
@@ -221,7 +208,7 @@ const TodoPage = () => {
                   required
                 >
                   <option value="">Select Order Number</option>
-                  {availableOrderNumbers.map((num) => (
+                  {generateOrderNumbers().map((num) => (
                     <option key={num} value={num}>
                       {num}
                     </option>
@@ -229,7 +216,7 @@ const TodoPage = () => {
                 </select>
               </div>
               <button type="submit" className="p-2 bg-blue-500 text-white rounded w-full">
-                Add Task
+                {editTodo ? "Update Task" : "Add Task"}
               </button>
             </form>
           </div>
