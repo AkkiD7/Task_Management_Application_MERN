@@ -154,7 +154,7 @@ const TodoPage = () => {
                   className="mr-2"
                 />
                 <span className={`flex-1 ${todo.status === "completed" ? "line-through" : ""}`}>
-                  {todo.description}
+                {todo.orderNumber}{")"} {todo.description}
                 </span>
                 <button
                   onClick={() => {
