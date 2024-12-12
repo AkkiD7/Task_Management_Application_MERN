@@ -44,27 +44,21 @@ This is a simple Task Management Application built using the MERN stack (MongoDB
 
 **Frontend Setup:**
 
-Clone the repository:
-git clone https://github.com/akkid7/task_management_app_MERN.git
-cd task_management_app_MERN
-Navigate to the frontend directory cd client and install dependencies:
-cd todo_app_frontend
-npm install
-Run the React development server:
-npm start
-The frontend should be available at http://localhost:3000.
+- Clone the repository:git clone https://github.com/akkid7/task_management_app_MERN.git
+- cd task_management_app_MERN
+- Navigate to the frontend directory cd todo_app_frontend
+- install dependencies: npm install
+- Run the React development server:
+- npm start The frontend should be available at http://localhost:3000.
 
 
 **Backend Setup:**
 
-Navigate to the backend directory:
-cd todo_app_backend
-Install backend dependencies:
-npm install
-Set up MongoDB (make sure MongoDB is running locally). You can install MongoDB locally or use a cloud provider like MongoDB Atlas.
-Start the backend server:
-npm start
-The backend API will run on http://localhost:5000.
+- Navigate to the backend directory: cd todo_app_backend
+- Install backend dependencies : npm install
+- Set up MongoDB (make sure MongoDB is running locally). You can install MongoDB locally or use a cloud provider like MongoDB Atlas.
+- Start the backend server:npm start
+- The backend API will run on http://localhost:5000.
 
 
 
