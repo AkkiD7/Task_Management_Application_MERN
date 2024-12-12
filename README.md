@@ -42,7 +42,8 @@ This is a simple Task Management Application built using the MERN stack (MongoDB
 
 ## Installation:
 
-**Frontend Setup** 
+**Frontend Setup:**
+
 Clone the repository:
 git clone https://github.com/akkid7/task_management_app_MERN.git
 cd task-management-app
@@ -54,7 +55,8 @@ npm start
 The frontend should be available at http://localhost:3000.
 
 
-**Backend Setup**
+**Backend Setup:**
+
 Navigate to the backend directory:
 cd server
 Install backend dependencies:
